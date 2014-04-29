@@ -45,9 +45,7 @@ class Decimal
 	}
 
 	public:
-		//constructors - different for signed and unsigned
-		//we don't need any others - any value we can cast on this two
-		//additionally we have no argument constructor setting our Decimal to 0
+		//constructors
 		Decimal(const ULLI& number)
 		{
 			sign = 1;
@@ -66,6 +64,38 @@ class Decimal
 				number /= base;
 			}
 		}
+		Decimal(const float& number)
+		{
+			*this = Decimal((LLI)number);
+		}
+		Decimal(const double& number)
+		{
+			*this = Decimal((LLI)number);
+		}
+		Decimal(const int& number)
+		{
+			*this = Decimal((LLI)number);
+		}
+		Decimal(const unsigned int& number)
+		{
+			*this = Decimal((ULLI)number);
+		}
+		Decimal(const long int& number)
+		{
+			*this = Decimal((LLI)number);
+		}
+		Decimal(const unsigned long int& number)
+		{
+			*this = Decimal((ULLI)number);
+		}
+		Decimal(const short int& number)
+		{
+			*this = Decimal((LLI)number);
+		}
+		Decimal(const unsigned short int& number)
+		{
+			*this = Decimal((ULLI)number);
+		}
 		Decimal()
 		{
 			sign = 1;
@@ -82,7 +112,6 @@ class Decimal
 		
 		}
 
-		//three basic cases - any other can be represented as one of them
 		Decimal& operator=(const Decimal& number)
 		{
 			this->sign = number.sign;
@@ -98,7 +127,39 @@ class Decimal
 			*this = Decimal(number);
 			return *this;
 		}
-		
+		Decimal& operator=(const float& number)
+		{
+			return *this = Decimal(number);
+		}
+		Decimal& operator=(const double& number)
+		{
+			return *this = Decimal(number);
+		}
+		Decimal& operator=(const int& number)
+		{
+			return *this = Decimal(number);
+		}
+		Decimal& operator=(const unsigned int& number)
+		{
+			return *this = Decimal(number);
+		}
+		Decimal& operator=(const long int& number)
+		{
+			return *this = Decimal(number);
+		}
+		Decimal& operator=(const unsigned long int& number)
+		{
+			return *this = Decimal(number);
+		}
+		Decimal& operator=(const short int& number)
+		{
+			return *this = Decimal(number);
+		}
+		Decimal& operator=(const unsigned short int& number)
+		{
+			return *this = Decimal(number);
+		}
+
 		//absolute value
 		Decimal Abs()
 		{
@@ -205,12 +266,14 @@ class Decimal
 				{
 					for (; i >= 0; --i)
 						number.v[i] -= tmp.v[i];
+					number.Repair();
 					return number;
 				}
 				else if (number.Abs() < tmp.Abs())
 				{
 					for (; i >= 0; --i)
 						tmp.v[i] -= number.v[i];
+					tmp.Repair();
 					return tmp;
 				}
 			}
@@ -287,6 +350,7 @@ class Decimal
 			return *this;
 		}
 
+		//bit operations - not optimalized at all
 		Decimal operator<<(Decimal number)
 		{
 			Decimal tmp(*this);
