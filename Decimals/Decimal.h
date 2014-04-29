@@ -15,7 +15,7 @@ typedef long long int LLI;
 
 class Decimal
 {
-	vector<ULLI> v;
+	vector<LLI> v;
 	short int sign; //short int to make it easier while multiplying or antyhing
 	const ULLI base = 1000000000; //10^9 - gives us possibility to multiply without danger of getting out of range
 	
@@ -88,26 +88,133 @@ class Decimal
 			return *this;
 		}
 		
+		//absolute value
+		Decimal Abs()
+		{
+			Decimal tmp(*this);
+			tmp.sign = 1;
+			return tmp;
+		}
+
+		//comparators
+		int operator()(const Decimal& number) const
+		{
+			if (this->sign < number.sign)
+				return -1;
+			else if (this->sign > number.sign)
+				return 1;
+			else
+			{
+				if (this->v.size() > number.v.size())
+				{
+					if (this->sign < 0)
+						return -1;
+					else return 1;
+				}
+				else if (this->v.size() < number.v.size())
+				{
+					if (this->sign < 0)
+						return 1;
+					else return -1;
+				}
+				else
+				{
+					for (int i = this->v.size()-1; i>=0; --i)
+					{
+						if (this->v[i]>number.v[i])
+						{
+							if (this->sign < 0)
+								return -1;
+							else return 1;
+						}
+						else if (this->v[i] < number.v[i])
+						{
+							if (this->sign < 0)
+								return 1;
+							else return -1;
+						}
+					}
+					return 0;
+				}
+			}
+		}
+		bool operator<(const Decimal& number) const
+		{
+			return (this->operator()(number) == -1);
+		}
+		bool operator>(const Decimal& number) const
+		{
+			return this->operator()(number) == 1;
+		}
+		bool operator==(const Decimal& number) const
+		{
+			return this->operator()(number) == 0;
+		}
+		bool operator>=(const Decimal& number) const
+		{
+			return (*this < number) == 0;
+		}
+		bool operator<=(const Decimal& number) const
+		{
+			return (*this>number) == 0;
+		}
+
 		//TODO - another signs of decimals
 		Decimal operator+(Decimal number)
 		{
 			Decimal tmp(*this);
 			int i = MIN(number.v.size(),tmp.v.size());
-			if (number.v.size() > tmp.v.size())
+			//the same sign
+			if (number.sign == tmp.sign)
 			{
-				for (; i >= 0; --i)
-					number.v[i] += tmp.v[i];
-				number.Repair();
-				return number;
+				if (number.v.size() > tmp.v.size())
+				{
+					for (; i >= 0; --i)
+						number.v[i] += tmp.v[i];
+					number.Repair();
+					return number;
+				}
+				else
+				{
+					for (; i >= 0; --i)
+						tmp.v[i] += number.v[i];
+					tmp.Repair();
+					return tmp;
+				}
 			}
+			//another signs
 			else
 			{
-				for (; i >= 0; --i)
-					tmp.v[i] += number.v[i];
-				tmp.Repair();
-				return tmp;			
-			}
+				/*
+				//for number > 0 and tmp < 0
+				if (number.sign > tmp.sign)
+				{
+					//for abs(number) > abs(tmp)
+					if (number.v.size() > tmp.v.size())
+					{
 
+					}
+					//for abs(number) < abs(tmp)
+					else if (number.v.size() < tmp.v.size())
+					{
+						for (; i >= 0; --i)
+						{
+							//without borrowing more significant bit
+							if (tmp.v[i] - number.v[i] >= 0)
+							{
+								tmp.v[i] -= number.v[i];
+							}
+							//if we have to borrow (we always can)
+							else
+							{
+								--tmp.v[i + 1];
+								tmp.v[i] += base;
+								tmp.v[i] -= number.v[i];
+							}
+						}
+					}
+				}*/
+			}
 		}
 
 };
