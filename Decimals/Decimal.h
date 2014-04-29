@@ -19,7 +19,7 @@ class Decimal
 {
 	vector<LLI> v;
 	short int sign; //short int to make it easier while multiplying or antyhing
-	const ULLI base = 1000000000; //10^9 - gives us possibility to multiply without danger of getting out of range
+	static const ULLI base = 1000000000; //10^9 - gives us possibility to multiply without danger of getting out of range
 	
 	//if any cell has bigger value than expected, we have to repair our structure and move rest to the next cell
 	//we also have to delete leading zeroes
@@ -651,7 +651,7 @@ class Decimal
 			return *this;
 		}
 
-		//bit operations - not optimalized at all
+		//bit operations - not optimalized at all, but probably working
 		Decimal operator<<(Decimal number)
 		{
 			Decimal tmp(*this);
