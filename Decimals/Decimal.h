@@ -2,6 +2,9 @@
 #define __DECIMAL__
 
 #include <vector>
+#include <string>
+
+#include <iostream>
 
 #define LET(a,b) (auto a = (b))
 #define PB push_back
@@ -23,19 +26,22 @@ class Decimal
 	void Repair()
 	{
 		for (int i = 0; i < this->v.size(); ++i)
-		if (this->v[i]>base)
-		{
-			if (i + 1 < this->v.size())
+			if (this->v[i]>base)
 			{
-				this->v[i + 1] += this->v[i] / base;
-				this->v[i] %= base;
+				if (i + 1 < this->v.size())
+				{
+					this->v[i + 1] += this->v[i] / base;
+					this->v[i] %= base;
+				}
+				else
+				{
+					this->v.PB(this->v[i] / base);
+					this->v[i] %= base;
+				}
 			}
-			else
-			{
-				this->v.PB(this->v[i] / base);
-				this->v[i] %= base;
-			}
-		}
+		
+		//deleting leading zeroes
+		while (this->v[this->v.size() - 1] == 0) this->v.pop_back();
 	}
 
 	public:
@@ -70,6 +76,11 @@ class Decimal
 			this->sign = number.sign;
 			this->v = number.v;
 		}
+		//TODO:
+		Decimal(string str)
+		{
+		
+		}
 
 		//three basic cases - any other can be represented as one of them
 		Decimal& operator=(const Decimal& number)
@@ -94,6 +105,12 @@ class Decimal
 			Decimal tmp(*this);
 			tmp.sign = 1;
 			return tmp;
+		}
+
+		//conversion to string
+		string ToStr()
+		{
+
 		}
 
 		//comparators
@@ -159,7 +176,6 @@ class Decimal
 			return (*this>number) == 0;
 		}
 
-		//TODO - another signs of decimals
 		Decimal operator+(Decimal number)
 		{
 			Decimal tmp(*this);
@@ -185,37 +201,124 @@ class Decimal
 			//another signs
 			else
 			{
-				/*
-				//for number > 0 and tmp < 0
-				if (number.sign > tmp.sign)
+				if (number.Abs() > tmp.Abs())
 				{
-					//for abs(number) > abs(tmp)
-					if (number.v.size() > tmp.v.size())
-					{
-
-					}
-					//for abs(number) < abs(tmp)
-					else if (number.v.size() < tmp.v.size())
-					{
-						for (; i >= 0; --i)
-						{
-							//without borrowing more significant bit
-							if (tmp.v[i] - number.v[i] >= 0)
-							{
-								tmp.v[i] -= number.v[i];
-							}
-							//if we have to borrow (we always can)
-							else
-							{
-								--tmp.v[i + 1];
-								tmp.v[i] += base;
-								tmp.v[i] -= number.v[i];
-							}
-						}
-					}
-				}*/
+					for (; i >= 0; --i)
+						number.v[i] -= tmp.v[i];
+					return number;
+				}
+				else if (number.Abs() < tmp.Abs())
+				{
+					for (; i >= 0; --i)
+						tmp.v[i] -= number.v[i];
+					return tmp;
+				}
 			}
 		}
+		Decimal& operator+=(Decimal& number)
+		{
+			*this = *this + number;
+			return *this;
+		}
+		Decimal& operator++()
+		{
+			*this += Decimal((ULLI)1);
+			return *this;
+		}
+		Decimal operator++(int)
+		{
+			Decimal tmp(*this);
+			++*this;
+			return tmp;
+		}
+
+		Decimal operator-(Decimal number)
+		{
+			number.sign *= -1;
+			return *this + number;
+		}
+		Decimal& operator-=(Decimal& number)
+		{
+			*this = *this - number;
+			return *this;
+		}
+		Decimal& operator--()
+		{
+			*this -= Decimal((ULLI)1);
+			return *this;
+		}
+		Decimal operator--(int)
+		{
+			Decimal tmp(*this);
+			--*this;
+			return tmp;
+		}
+
+		//TODO:
+		Decimal operator*(Decimal number)
+		{
+			
+		}
+		Decimal& operator*=(Decimal& number)
+		{
+			*this = *this * number;
+			return *this;
+		}
+
+		//TODO:
+		Decimal operator/(Decimal number)
+		{
+
+		}
+		Decimal& operator/=(Decimal& number)
+		{
+			*this = *this / number;
+			return *this;
+		}
+
+		//TODO:
+		Decimal operator%(Decimal number)
+		{
+			
+		}
+		Decimal& operator%=(Decimal& number)
+		{
+			*this = *this % number;
+			return *this;
+		}
+
+		Decimal operator<<(Decimal number)
+		{
+			Decimal tmp(*this);
+			for (Decimal i((ULLI)(0)); i < number; ++i)
+			{
+				tmp *= Decimal((ULLI)2);
+			}
+			return tmp;
+		}
+		Decimal operator>>(Decimal number)
+		{
+			Decimal tmp(*this);
+			for (Decimal i((ULLI)(0)); i < number; ++i)
+			{
+				tmp /= Decimal((ULLI)2);
+			}
+			return tmp;
+		}
+
+		//input and output
+		friend ostream& operator<<(ostream& output, const Decimal& number)
+		{
+			return output << number.ToStr();
+		}
+		friend istream& operator>>(istream& input, Decimal& number)
+		{
+			string str;
+			cin >> str;
+			*this = Decimal(str);
+			return cin;
+		}
+		
 
 };
 
