@@ -22,6 +22,7 @@ class Decimal
 	const ULLI base = 1000000000; //10^9 - gives us possibility to multiply without danger of getting out of range
 	
 	//if any cell has bigger value than expected, we have to repair our structure and move rest to the next cell
+	//we also have to delete leading zeroes
 	void Repair()
 	{
 		for (int i = 0; i < this->v.size(); ++i)
@@ -326,6 +327,14 @@ class Decimal
 			++*this;
 			return tmp;
 		}
+		Decimal operator+(const ULLI& number)
+		{
+			return *this + Decimal(number);
+		}
+		Decimal operator+(const LLI& number)
+		{
+			return *this + Decimal(number);
+		}
 		Decimal operator+(const float& number)
 		{
 			return *this + Decimal(number);
@@ -357,6 +366,14 @@ class Decimal
 		Decimal operator+(const unsigned short int& number)
 		{
 			return *this + Decimal(number);
+		}
+		Decimal& operator+=(const ULLI& number)
+		{
+			return *this += Decimal(number);
+		}
+		Decimal& operator+=(const LLI& number)
+		{
+			return *this += Decimal(number);
 		}
 		Decimal& operator+=(const float& number)
 		{
@@ -391,7 +408,6 @@ class Decimal
 			return *this += Decimal(number);
 		}
 
-
 		Decimal operator-(Decimal number)
 		{
 			number.sign *= -1;
@@ -412,6 +428,14 @@ class Decimal
 			Decimal tmp(*this);
 			--*this;
 			return tmp;
+		}
+		Decimal operator-(const ULLI& number)
+		{
+			return *this - Decimal(number);
+		}
+		Decimal operator-(const LLI& number)
+		{
+			return *this - Decimal(number);
 		}
 		Decimal operator-(const float& number)
 		{
@@ -444,6 +468,14 @@ class Decimal
 		Decimal operator-(const unsigned short int& number)
 		{
 			return *this - Decimal(number);
+		}
+		Decimal& operator-=(const ULLI& number)
+		{
+			return *this -= Decimal(number);
+		}
+		Decimal& operator-=(const LLI& number)
+		{
+			return *this -= Decimal(number);
 		}
 		Decimal& operator-=(const float& number)
 		{
@@ -478,15 +510,123 @@ class Decimal
 			return *this -= Decimal(number);
 		}
 
-		//TODO:
+		Decimal operator*(ULLI number)
+		{
+			Decimal tmp(*this);
+			if (number <= base)
+			{
+				for (int i = 0; i < tmp.v.size(); ++i)
+					tmp.v[i] *= number;
+				Repair();
+				return tmp;
+			}
+			else
+				return *this * Decimal(number);
+		}
 		Decimal operator*(Decimal number)
 		{
-			
+			Decimal tmp, res;
+			for (int i = 0; i < number.v.size(); ++i)
+			{
+				tmp = *this;
+				for (int j = 0; j < i; ++j)
+				{
+					tmp *= base;
+				}
+				tmp *= number.v[i];
+				res += tmp;
+			}
+			res.sign = this->sign * number.sign;
+			return res;
 		}
 		Decimal& operator*=(Decimal& number)
 		{
 			*this = *this * number;
 			return *this;
+		}
+		Decimal& operator*=(ULLI number)
+		{
+			if (number <= base)
+			{
+				for (int i = 0; i < this->v.size(); ++i)
+					this->v[i] *= number;
+				Repair();
+				return *this;
+			}
+			else
+				return *this *= Decimal(number);
+		}
+		Decimal operator*(const LLI& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const float& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const double& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const int& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const unsigned int& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const long int& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const unsigned long int& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const short int& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal operator*(const unsigned short int& number)
+		{
+			return *this * Decimal(number);
+		}
+		Decimal& operator*=(const LLI& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const float& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const double& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const int& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const unsigned int& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const long int& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const unsigned long int& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const short int& number)
+		{
+			return *this *= Decimal(number);
+		}
+		Decimal& operator*=(const unsigned short int& number)
+		{
+			return *this *= Decimal(number);
 		}
 
 		//TODO:
