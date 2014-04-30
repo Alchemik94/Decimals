@@ -133,7 +133,13 @@ public:
 	Decimal(string str)
 	{
 		*this = Decimal();
-		for (int i = 0; i < str.length(); ++i)
+		int i = 0;
+		if (str[0] == '-')
+		{
+			sign = -1;
+			++i;
+		}
+		for (; i < str.length(); ++i)
 		{
 			*this *= Decimal(10);
 			*this += Decimal((int)(str[i] - '0'));
@@ -200,6 +206,7 @@ public:
 	string ToStr()
 	{
 		string res = "";
+		if (sign < 0) res += "-";
 		for (int i = this->v.size() - 1; i >= 0; --i)
 		{
 			res += Zeroes(i) + Rest(i);
@@ -634,13 +641,21 @@ public:
 	{
 		if (number.Abs() > this->Abs()) return 0;
 		if (number == *this) return 1;
-		Decimal tmp, rest;
+		/*Decimal tmp, rest;
+		int divLen = number.Abs().ToStr().length();
+		int j;
 		for (int i = this->v.size() - 1; i >= number.v.size(); --i)
 		{
-			tmp = *this;
+			tmp = Decimal(this->ToStr().substr(0,divLen));
+			if (tmp < number)
+			{
+				tmp = Decimal(this->ToStr().substr(0, divLen + 1));
+			}
+			for (j = 1; number * j <= tmp.Abs(); ++j);
+			--j;
 			rest = 0;
-
-		}
+		
+		}*/
 
 	}
 	Decimal& operator/=(Decimal& number)
@@ -675,7 +690,7 @@ public:
 	}
 	Decimal& operator<<=(const Decimal& number)
 	{
-		return (this* = (*this << number));
+		return (*this = (*this << number));
 	}
 	Decimal operator>>(const Decimal& number)
 	{
@@ -705,7 +720,7 @@ public:
 			*this = Decimal(str);
 			return cin;
 		}
-		
+	
 
 };
 
