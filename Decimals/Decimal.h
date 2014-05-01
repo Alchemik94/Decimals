@@ -636,28 +636,30 @@ public:
 		return *this *= Decimal(number);
 	}
 
-	//TODO:
 	Decimal operator/(Decimal number)
 	{
 		if (number.Abs() > this->Abs()) return 0;
 		if (number == *this) return 1;
-		/*Decimal tmp, rest;
-		int divLen = number.Abs().ToStr().length();
-		int j;
-		for (int i = this->v.size() - 1; i >= number.v.size(); --i)
-		{
-			tmp = Decimal(this->ToStr().substr(0,divLen));
-			if (tmp < number)
-			{
-				tmp = Decimal(this->ToStr().substr(0, divLen + 1));
-			}
-			for (j = 1; number * j <= tmp.Abs(); ++j);
-			--j;
-			rest = 0;
-		
-		}*/
+		if (number == Decimal()-(*this)) return -1;
 
+		Decimal tmp, rest(this->Abs()), result;
+		int divLen = number.Abs().ToStr().length();
+		int howMany;
+		int shift = 0;
+		while (rest > number.Abs())
+		{
+			for (int i = 0; i < shift; ++i)
+				result *= 10;
+			tmp = Decimal(rest.ToStr().substr(0,divLen));
+			for (howMany = 0; number * (howMany + 1) <= tmp; ++howMany);
+			result += howMany;
+			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length;
+			rest -= number * howMany;
+		}
+		result.sign = this->sign * number.sign;
+		return result;
 	}
+	//TODO:
 	Decimal& operator/=(Decimal& number)
 	{
 		*this = *this / number;
@@ -667,7 +669,25 @@ public:
 	//TODO:
 	Decimal operator%(Decimal number)
 	{
+		if (number.Abs() > this->Abs()) return 0;
+		if (number == *this) return 1;
+		if (number == Decimal() - (*this)) return -1;
 
+		Decimal tmp, rest(this->Abs()), result;
+		int divLen = number.Abs().ToStr().length();
+		int howMany;
+		int shift = 0;
+		while (rest.Abs() > number.Abs())
+		{
+			for (int i = 0; i < shift; ++i)
+				result *= 10;
+			tmp = Decimal(rest.ToStr().substr(0, divLen));
+			for (howMany = 0; number * (howMany + 1) <= tmp; ++howMany);
+			result += howMany;
+			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length;
+			rest -= number * howMany;
+		}
+		return result;
 	}
 	Decimal& operator%=(Decimal& number)
 	{
