@@ -1,6 +1,8 @@
 #include "Decimal.h"
 #include <iostream>
 
+#define __DEBUG__
+
 using namespace std;
 
 int main()
@@ -9,7 +11,8 @@ int main()
 
 	Decimal ad(a), bd(b), cd(c);
 
-	cout << ad << " " << bd << " " << cd << "\n";
+	cout << ad;
+	cout << " " << bd << " " << cd << "\n";
 
 
 

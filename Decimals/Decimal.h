@@ -1,6 +1,13 @@
 #ifndef __DECIMAL__
 #define __DECIMAL__
 
+#ifdef __DEBUG__
+#define dbg printf
+#else
+#define dbg
+#endif
+
+
 #include <vector>
 #include <string>
 
@@ -53,6 +60,7 @@ class Decimal
 		while (tmp != 0)
 		{
 			res += "0";
+			tmp /= 10;
 		}
 		return res;
 	}
@@ -82,6 +90,8 @@ public:
 	Decimal(LLI number)
 	{
 		sign = ((number < 0) ? -1 : 1);
+		if (number < 0)
+			number = -number;
 		while (number != 0)
 		{
 			v.PB(number%base);
@@ -211,6 +221,8 @@ public:
 		{
 			res += Zeroes(i) + Rest(i);
 		}
+
+		dbg("%s\n",res.c_str());
 		return res;
 	}
 
