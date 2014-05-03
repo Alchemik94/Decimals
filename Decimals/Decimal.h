@@ -154,8 +154,8 @@ public:
 	}
 	Decimal()
 	{
-		sign = 1;
-		v.PB(0);
+		this->sign = 1;
+		this->v.PB(0);
 	}
 	Decimal(const Decimal& number)
 	{

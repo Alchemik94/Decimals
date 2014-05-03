@@ -14,11 +14,13 @@ int main()
 
 	Decimal sum = ad + bd;
 	Decimal subtraction = ad - bd;
+	Decimal product = ad*bd;
 	Decimal division = ad / cd;
 	Decimal modulo = ad%cd;
 
 	cout << "sum = " << sum << "\n";
 	cout << "subtraction = " << subtraction << "\n";
+	cout << "product = " << product << "\n";
 	cout << "division = " << division << "\n";
 	cout << "modulo = " << modulo << "\n";
 
