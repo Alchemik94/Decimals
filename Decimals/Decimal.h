@@ -256,25 +256,270 @@ public:
 			}
 		}
 	}
+	int operator()(const ULLI number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const LLI number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const float number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const double number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const int number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const unsigned int number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const long int number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const unsigned long int number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const short int number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+	int operator()(const unsigned short int number) const
+	{
+		return this->operator()(Decimal(number));
+	}
+
 	bool operator<(const Decimal& number) const
 	{
 		return (this->operator()(number) == -1);
 	}
+	bool operator<(const ULLI number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const LLI number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const float number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const double number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const int number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const unsigned int number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const long int number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const unsigned long int number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const short int number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+	bool operator<(const unsigned short int number) const
+	{
+		return this->operator<(Decimal(number));
+	}
+
 	bool operator>(const Decimal& number) const
 	{
 		return this->operator()(number) == 1;
 	}
+	bool operator>(const ULLI number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const LLI number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const float number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const double number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const int number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const unsigned int number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const long int number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const unsigned long int number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const short int number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+	bool operator>(const unsigned short int number) const
+	{
+		return this->operator>(Decimal(number));
+	}
+
 	bool operator==(const Decimal& number) const
 	{
 		return this->operator()(number) == 0;
 	}
+	bool operator==(const ULLI number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const LLI number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const float number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const double number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const int number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const unsigned int number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const long int number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const unsigned long int number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const short int number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+	bool operator==(const unsigned short int number) const
+	{
+		return this->operator==(Decimal(number));
+	}
+
 	bool operator>=(const Decimal& number) const
 	{
 		return (*this < number) == 0;
 	}
+	bool operator>=(const ULLI number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const LLI number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const float number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const double number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const int number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const unsigned int number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const long int number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const unsigned long int number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const short int number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+	bool operator>=(const unsigned short int number) const
+	{
+		return this->operator>=(Decimal(number));
+	}
+
 	bool operator<=(const Decimal& number) const
 	{
 		return (*this>number) == 0;
+	}
+	bool operator<=(const ULLI number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const LLI number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const float number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const double number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const int number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const unsigned int number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const long int number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const unsigned long int number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const short int number) const
+	{
+		return this->operator<=(Decimal(number));
+	}
+	bool operator<=(const unsigned short int number) const
+	{
+		return this->operator<=(Decimal(number));
 	}
 
 	Decimal operator+(Decimal number)
