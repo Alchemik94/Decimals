@@ -898,7 +898,7 @@ public:
 			tmp = Decimal(rest.ToStr().substr(0,divLen));
 			for (howMany = 0; number * (howMany + 1) <= tmp; ++howMany);
 			result += howMany;
-			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length;
+			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length();
 			rest -= number * howMany;
 		}
 		result.sign = this->sign * number.sign;
@@ -1008,7 +1008,7 @@ public:
 			tmp = Decimal(rest.ToStr().substr(0, divLen));
 			for (howMany = 0; number * (howMany + 1) <= tmp; ++howMany);
 			result += howMany;
-			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length;
+			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length();
 			rest -= number * howMany;
 		}
 		return rest >= 0 ? rest : number + rest;
@@ -1133,16 +1133,16 @@ public:
 	}
 
 	//input and output
-	friend ostream& operator<<(ostream& output, const Decimal& number)
+	friend ostream& operator<<(ostream& output, Decimal& number)
 		{
 			return output << number.ToStr();
 		}
 	friend istream& operator>>(istream& input, Decimal& number)
 		{
 			string str;
-			cin >> str;
-			*this = Decimal(str);
-			return cin;
+			input >> str;
+			number = Decimal(str);
+			return input;
 		}
 	
 
