@@ -990,12 +990,12 @@ public:
 		return *this /= Decimal(number);
 	}
 
-	//TODO:
+	//?
 	Decimal operator%(Decimal number)
 	{
-		if (number.Abs() > this->Abs()) return 0;
-		if (number == *this) return 1;
-		if (number == Decimal() - (*this)) return -1;
+		if (number.Abs() > this->Abs()) return (this->sign*number.sign > 0 ? *this : number - *this);
+		if (number == *this) return 0;
+		if (number == Decimal() - (*this)) return 0;
 
 		Decimal tmp, rest(this->Abs()), result;
 		int divLen = number.Abs().ToStr().length();
@@ -1011,12 +1011,92 @@ public:
 			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length;
 			rest -= number * howMany;
 		}
-		return result;
+		return rest >= 0 ? rest : number + rest;
 	}
 	Decimal& operator%=(Decimal& number)
 	{
 		*this = *this % number;
 		return *this;
+	}
+	Decimal operator%(const ULLI& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const LLI& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const float& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const double& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const int& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const unsigned int& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const long int& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const unsigned long int& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const short int& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal operator%(const unsigned short int& number)
+	{
+		return *this % Decimal(number);
+	}
+	Decimal& operator%=(const ULLI& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const LLI& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const float& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const double& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const int& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const unsigned int& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const long int& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const unsigned long int& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const short int& number)
+	{
+		return *this %= Decimal(number);
+	}
+	Decimal& operator%=(const unsigned short int& number)
+	{
+		return *this %= Decimal(number);
 	}
 
 	//moving operators
