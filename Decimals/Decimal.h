@@ -51,13 +51,20 @@ class Decimal
 		while (this->v[this->v.size() - 1] == 0) this->v.pop_back();
 	}
 
+	string Reverse(string str)
+	{
+		string res = "";
+		for (int i = str.length() - 1; i >= 0; --i)
+			res += str[i];
+		return res;
+	}
 	string Zeroes(int i)
 	{
 		if (i == this->v.size() - 1)
 			return "";
 		string res = "";
 		ULLI tmp = base / 10;
-		while (tmp != 0)
+		while (tmp > this->v[i])
 		{
 			res += "0";
 			tmp /= 10;
@@ -73,6 +80,7 @@ class Decimal
 			res = res + (char)((char)(tmp % 10) + '0');
 			tmp /= 10;
 		}
+		res = Reverse(res);
 		return res;
 	}
 
@@ -221,8 +229,6 @@ public:
 		{
 			res += Zeroes(i) + Rest(i);
 		}
-
-		dbg("%s\n",res.c_str());
 		return res;
 	}
 

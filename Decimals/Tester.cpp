@@ -1,8 +1,6 @@
 #include "Decimal.h"
 #include <iostream>
 
-#define __DEBUG__
-
 using namespace std;
 
 int main()
