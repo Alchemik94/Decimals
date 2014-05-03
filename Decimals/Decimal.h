@@ -904,11 +904,90 @@ public:
 		result.sign = this->sign * number.sign;
 		return result;
 	}
-	//TODO:
 	Decimal& operator/=(Decimal& number)
 	{
 		*this = *this / number;
 		return *this;
+	}
+	Decimal operator/(const ULLI& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const LLI& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const float& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const double& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const int& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const unsigned int& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const long int& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const unsigned long int& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const short int& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal operator/(const unsigned short int& number)
+	{
+		return *this / Decimal(number);
+	}
+	Decimal& operator/=(const ULLI& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const LLI& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const float& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const double& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const int& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const unsigned int& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const long int& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const unsigned long int& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const short int& number)
+	{
+		return *this /= Decimal(number);
+	}
+	Decimal& operator/=(const unsigned short int& number)
+	{
+		return *this /= Decimal(number);
 	}
 
 	//TODO:
