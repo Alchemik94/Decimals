@@ -12,7 +12,15 @@ int main()
 	cout << ad;
 	cout << " " << bd << " " << cd << "\n";
 
+	Decimal sum = ad + bd;
+	Decimal subtraction = ad - bd;
+	Decimal division = ad / cd;
+	Decimal modulo = ad%cd;
 
+	cout << "sum = " << sum << "\n";
+	cout << "subtraction = " << subtraction << "\n";
+	cout << "division = " << division << "\n";
+	cout << "modulo = " << modulo << "\n";
 
 	return 0;
 }

@@ -32,6 +32,20 @@ class Decimal
 	//we also have to delete leading zeroes
 	void Repair()
 	{
+		//borrowing bits
+		for (int i = 0; i < this->v.size()-1; ++i)
+		while (this->v[i]<0)
+		{
+			this->v[i + 1] -= 1;
+			this->v[i] += base;
+		}
+		if (this->v[this->v.size() - 1] < 0)
+		{
+			this->v[this->v.size() - 1] *= -1;
+			this->sign *= -1;
+		}
+
+		//moving our over-results
 		for (int i = 0; i < this->v.size(); ++i)
 		if (this->v[i]>base)
 		{
@@ -543,7 +557,7 @@ public:
 	Decimal operator+(Decimal number)
 	{
 		Decimal tmp(*this);
-		int i = MIN(number.v.size(), tmp.v.size());
+		int i = MIN(number.v.size()-1, tmp.v.size()-1);
 		//the same sign
 		if (number.sign == tmp.sign)
 		{
