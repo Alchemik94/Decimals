@@ -595,7 +595,7 @@ public:
 			}
 		}
 	}
-	Decimal& operator+=(Decimal& number)
+	Decimal& operator+=(const Decimal& number)
 	{
 		*this = *this + number;
 		return *this;
@@ -697,7 +697,7 @@ public:
 		number.sign *= -1;
 		return *this + number;
 	}
-	Decimal& operator-=(Decimal& number)
+	Decimal& operator-=(const Decimal& number)
 	{
 		*this = *this - number;
 		return *this;
@@ -807,7 +807,7 @@ public:
 		else
 			return *this * Decimal(number);
 	}
-	Decimal operator*(Decimal number)
+	Decimal operator*(const Decimal& number)
 	{
 		Decimal tmp, res;
 		for (int i = 0; i < number.v.size(); ++i)
