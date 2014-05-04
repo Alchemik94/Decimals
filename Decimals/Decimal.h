@@ -65,14 +65,14 @@ class Decimal
 		while (this->v[this->v.size() - 1] == 0) this->v.pop_back();
 	}
 
-	string Reverse(string str)
+	string Reverse(string str) const
 	{
 		string res = "";
 		for (int i = str.length() - 1; i >= 0; --i)
 			res += str[i];
 		return res;
 	}
-	string Zeroes(int i)
+	string Zeroes(int i) const
 	{
 		if (i == this->v.size() - 1)
 			return "";
@@ -85,7 +85,7 @@ class Decimal
 		}
 		return res;
 	}
-	string Rest(int i)
+	string Rest(int i) const
 	{
 		string res = "";
 		ULLI tmp = this->v[i];
@@ -227,7 +227,7 @@ public:
 	}
 
 	//absolute value
-	Decimal Abs()
+	Decimal Abs() const
 	{
 		Decimal tmp(*this);
 		tmp.sign = 1;
@@ -235,7 +235,7 @@ public:
 	}
 
 	//conversion to string
-	string ToStr()
+	string ToStr() const
 	{
 		string res = "";
 		if (sign < 0) res += "-";
@@ -913,7 +913,7 @@ public:
 		return *this *= Decimal(number);
 	}
 
-	Decimal operator/(Decimal number)
+	Decimal operator/(Decimal number) const
 	{
 		if (number.Abs() > this->Abs()) return 0;
 		if (number == *this) return 1;
@@ -941,43 +941,43 @@ public:
 		*this = *this / number;
 		return *this;
 	}
-	Decimal operator/(const ULLI& number)
+	Decimal operator/(const ULLI& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const LLI& number)
+	Decimal operator/(const LLI& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const float& number)
+	Decimal operator/(const float& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const double& number)
+	Decimal operator/(const double& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const int& number)
+	Decimal operator/(const int& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const unsigned int& number)
+	Decimal operator/(const unsigned int& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const long int& number)
+	Decimal operator/(const long int& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const unsigned long int& number)
+	Decimal operator/(const unsigned long int& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const short int& number)
+	Decimal operator/(const short int& number) const
 	{
 		return *this / Decimal(number);
 	}
-	Decimal operator/(const unsigned short int& number)
+	Decimal operator/(const unsigned short int& number) const
 	{
 		return *this / Decimal(number);
 	}
@@ -1023,7 +1023,7 @@ public:
 	}
 
 	//?
-	Decimal operator%(Decimal number)
+	Decimal operator%(Decimal number) const
 	{
 		if (number.Abs() > this->Abs()) return (this->sign*number.sign > 0 ? *this : number - *this);
 		if (number == *this) return 0;
@@ -1050,43 +1050,43 @@ public:
 		*this = *this % number;
 		return *this;
 	}
-	Decimal operator%(const ULLI& number)
+	Decimal operator%(const ULLI& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const LLI& number)
+	Decimal operator%(const LLI& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const float& number)
+	Decimal operator%(const float& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const double& number)
+	Decimal operator%(const double& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const int& number)
+	Decimal operator%(const int& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const unsigned int& number)
+	Decimal operator%(const unsigned int& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const long int& number)
+	Decimal operator%(const long int& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const unsigned long int& number)
+	Decimal operator%(const unsigned long int& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const short int& number)
+	Decimal operator%(const short int& number) const
 	{
 		return *this % Decimal(number);
 	}
-	Decimal operator%(const unsigned short int& number)
+	Decimal operator%(const unsigned short int& number) const
 	{
 		return *this % Decimal(number);
 	}
