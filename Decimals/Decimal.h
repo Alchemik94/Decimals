@@ -171,9 +171,10 @@ public:
 			sign = -1;
 			++i;
 		}
+		else sign = 1;
 		for (; i < str.length(); ++i)
 		{
-			*this *= Decimal(10);
+			*this *= (ULLI)(10);
 			*this += Decimal((int)(str[i] - '0'));
 		}
 	}
