@@ -554,7 +554,7 @@ public:
 		return this->operator<=(Decimal(number));
 	}
 
-	Decimal operator+(Decimal number)
+	Decimal operator+(Decimal number) const
 	{
 		Decimal tmp(*this);
 		int i = MIN(number.v.size()-1, tmp.v.size()-1);
@@ -611,43 +611,43 @@ public:
 		++*this;
 		return tmp;
 	}
-	Decimal operator+(const ULLI& number)
+	Decimal operator+(const ULLI& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const LLI& number)
+	Decimal operator+(const LLI& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const float& number)
+	Decimal operator+(const float& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const double& number)
+	Decimal operator+(const double& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const int& number)
+	Decimal operator+(const int& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const unsigned int& number)
+	Decimal operator+(const unsigned int& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const long int& number)
+	Decimal operator+(const long int& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const unsigned long int& number)
+	Decimal operator+(const unsigned long int& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const short int& number)
+	Decimal operator+(const short int& number) const
 	{
 		return *this + Decimal(number);
 	}
-	Decimal operator+(const unsigned short int& number)
+	Decimal operator+(const unsigned short int& number) const
 	{
 		return *this + Decimal(number);
 	}
@@ -692,7 +692,7 @@ public:
 		return *this += Decimal(number);
 	}
 
-	Decimal operator-(Decimal number)
+	Decimal operator-(Decimal number) const
 	{
 		number.sign *= -1;
 		return *this + number;
@@ -713,43 +713,43 @@ public:
 		--*this;
 		return tmp;
 	}
-	Decimal operator-(const ULLI& number)
+	Decimal operator-(const ULLI& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const LLI& number)
+	Decimal operator-(const LLI& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const float& number)
+	Decimal operator-(const float& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const double& number)
+	Decimal operator-(const double& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const int& number)
+	Decimal operator-(const int& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const unsigned int& number)
+	Decimal operator-(const unsigned int& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const long int& number)
+	Decimal operator-(const long int& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const unsigned long int& number)
+	Decimal operator-(const unsigned long int& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const short int& number)
+	Decimal operator-(const short int& number) const
 	{
 		return *this - Decimal(number);
 	}
-	Decimal operator-(const unsigned short int& number)
+	Decimal operator-(const unsigned short int& number) const
 	{
 		return *this - Decimal(number);
 	}
@@ -801,13 +801,13 @@ public:
 		{
 			for (int i = 0; i < tmp.v.size(); ++i)
 				tmp.v[i] *= number;
-			Repair();
+			tmp.Repair();
 			return tmp;
 		}
 		else
 			return *this * Decimal(number);
 	}
-	Decimal operator*(const Decimal& number)
+	Decimal operator*(const Decimal& number) const
 	{
 		Decimal tmp, res;
 		for (int i = 0; i < number.v.size(); ++i)
@@ -815,9 +815,9 @@ public:
 			tmp = *this;
 			for (int j = 0; j < i; ++j)
 			{
-				tmp *= base;
+				tmp *= (ULLI)base;
 			}
-			tmp *= number.v[i];
+			tmp *= (ULLI)number.v[i];
 			res += tmp;
 		}
 		res.sign = this->sign * number.sign;
@@ -834,7 +834,7 @@ public:
 		{
 			for (int i = 0; i < this->v.size(); ++i)
 				this->v[i] *= number;
-			Repair();
+			this->Repair();
 			return *this;
 		}
 		else
