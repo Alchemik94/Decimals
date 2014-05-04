@@ -68,6 +68,8 @@ class Decimal
 
 		//deleting leading zeroes
 		while (this->v[this->v.size() - 1] == 0 && this->v.size()>1) this->v.pop_back();
+
+		if (this->v.size() == 0) this->v.PB(0);
 	}
 
 	string Reverse(string str) const
@@ -114,6 +116,7 @@ public:
 			v.PB(number%base);
 			number /= base;
 		}
+		Repair();
 	}
 	Decimal(LLI number)
 	{
@@ -126,6 +129,7 @@ public:
 			v.PB(number%base);
 			number /= base;
 		}
+		Repair();
 	}
 	Decimal(const float& number)
 	{
@@ -168,6 +172,7 @@ public:
 	{
 		this->sign = number.sign;
 		this->v = number.v;
+		Repair();
 	}
 	Decimal(string str)
 	{
@@ -184,6 +189,7 @@ public:
 			*this *= (ULLI)(10);
 			*this += Decimal((int)(str[i] - '0'));
 		}
+		Repair();
 	}
 
 	Decimal& operator=(const Decimal& number)
@@ -245,6 +251,7 @@ public:
 	//conversion to string
 	string ToStr() const
 	{
+		if (*this == 0) return "0";
 		string res = "";
 		if (sign < 0) res += "-";
 		for (int i = this->v.size() - 1; i >= 0; --i)
@@ -702,6 +709,8 @@ public:
 
 	Decimal operator-(Decimal number) const
 	{
+		if (this->Abs() == number.Abs() && this->sign*number.sign == 1)
+			return Decimal();
 		number.sign *= -1;
 		return *this + number;
 	}
@@ -1035,27 +1044,32 @@ public:
 		return *this /= Decimal(number);
 	}
 
-	//?
 	Decimal operator%(Decimal number) const
 	{
 		if (number.Abs() > this->Abs()) return (this->sign*number.sign > 0 ? *this : number - *this);
 		if (number == *this) return 0;
 		if (number == Decimal() - (*this)) return 0;
 
-		Decimal tmp, rest(this->Abs()), result;
-		int divLen = number.Abs().ToStr().length();
-		int howMany;
-		int shift = 0;
-		while (rest.Abs() > number.Abs())
+		Decimal tmp, rest(this->Abs()), result, partial;
+		int i, j;
+		while (rest >= number.Abs())
 		{
-			for (int i = 0; i < shift; ++i)
-				result *= 10;
-			tmp = Decimal(rest.ToStr().substr(0, divLen));
-			for (howMany = 0; number * (howMany + 1) <= tmp; ++howMany);
-			result += howMany;
-			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length();
-			rest -= number * howMany;
+			tmp = number.Abs();
+			partial = 0;
+			for (i = 0; (tmp << (i + 1)) <= rest; ++i)
+				tmp <<= 1;
+			for (j = 0; tmp*powOfTen(j + 1) <= rest; ++j);
+			tmp *= powOfTen(j);
+			while ((rest - (tmp*partial)) >= tmp)
+			{
+				++partial;
+			}
+			rest -= tmp*(partial);
+			result += (partial << i) * powOfTen(j);
 		}
+
+		result.sign = this->sign * number.sign;
+		result.Repair();
 		return rest >= 0 ? rest : number + rest;
 	}
 	Decimal& operator%=(Decimal& number)

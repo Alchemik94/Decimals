@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	long long int a = 12345678900987, b = 908649503, c = -2;
+	long long int a = 12345678900987, b = 908649503, c = -3;
 
 	Decimal ad(a), bd(b), cd(c);
 
