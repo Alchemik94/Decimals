@@ -27,6 +27,11 @@ class Decimal
 	vector<LLI> v;
 	short int sign; //short int to make it easier while multiplying or antyhing
 	static const ULLI base = 1000000000; //10^9 - gives us possibility to multiply without danger of getting out of range
+	static const ULLI powOfTen(int i)
+	{
+		static const ULLI pow[10] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000 };
+		return pow[i];
+	}
 
 	//if any cell has bigger value than expected, we have to repair our structure and move rest to the next cell
 	//we also have to delete leading zeroes
@@ -922,30 +927,26 @@ public:
 		if (number == *this) return 1;
 		if (number == Decimal()-(*this)) return -1;
 
-		Decimal tmp, rest(this->Abs()), result;
-		int divLen = number.Abs().ToStr().length();
-		int howMany;
-		int shift = 0;
-		Decimal tens = 1;
-		while (rest > number.Abs())
+		Decimal tmp, rest(this->Abs()), result, partial;
+		int i,j;
+		while (rest >= number.Abs())
 		{
-			for (int i = 0; i < shift; ++i)
-				result *= 10;
-			tmp = Decimal(rest.ToStr().substr(0,divLen));
-			for (howMany = 0; (number.Abs() * (ULLI)(howMany + 1)) <= tmp; ++howMany);
-			if (howMany == 0)
+			tmp = number.Abs();
+			partial = 0;
+			for (i = 0; (tmp << (i+1)) <= rest; ++i)
+				tmp <<= 1;
+			for (j = 0; tmp*powOfTen(j+1) <= rest; ++j);
+			tmp *= powOfTen(j);
+			while ((rest - (tmp*partial)) >= tmp)
 			{
-				tmp = Decimal(rest.ToStr().substr(0, divLen+1));
-				for (howMany = 0; (number.Abs() * (ULLI)(howMany + 1)) <= tmp; ++howMany);
+				++partial;
 			}
-			result += howMany;
-			shift = rest.ToStr().length() - (rest - (number.Abs()*howMany)).ToStr().length();
-			tens = 1;
-			for (int i = 0; i < shift; ++i)
-				tens *= 10;
-			rest -= number.Abs() * Decimal(howMany) * tens;
+			rest -= tmp*(partial);
+			result += (partial << i) * powOfTen(j);
 		}
+		
 		result.sign = this->sign * number.sign;
+		result.Repair();
 		return result;
 	}
 	Decimal& operator/=(Decimal& number)
