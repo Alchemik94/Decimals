@@ -62,7 +62,7 @@ class Decimal
 		}
 
 		//deleting leading zeroes
-		while (this->v[this->v.size() - 1] == 0) this->v.pop_back();
+		while (this->v[this->v.size() - 1] == 0 && this->v.size()>1) this->v.pop_back();
 	}
 
 	string Reverse(string str) const
@@ -103,6 +103,7 @@ public:
 	Decimal(ULLI number)
 	{
 		sign = 1;
+		if (number == 0) v.PB(0);
 		while (number != 0)
 		{
 			v.PB(number%base);
@@ -111,6 +112,7 @@ public:
 	}
 	Decimal(LLI number)
 	{
+		if (number == 0) this->v.PB(0);
 		sign = ((number < 0) ? -1 : 1);
 		if (number < 0)
 			number = -number;
@@ -924,15 +926,24 @@ public:
 		int divLen = number.Abs().ToStr().length();
 		int howMany;
 		int shift = 0;
+		Decimal tens = 1;
 		while (rest > number.Abs())
 		{
 			for (int i = 0; i < shift; ++i)
 				result *= 10;
 			tmp = Decimal(rest.ToStr().substr(0,divLen));
-			for (howMany = 0; number * (howMany + 1) <= tmp; ++howMany);
+			for (howMany = 0; (number.Abs() * (ULLI)(howMany + 1)) <= tmp; ++howMany);
+			if (howMany == 0)
+			{
+				tmp = Decimal(rest.ToStr().substr(0, divLen+1));
+				for (howMany = 0; (number.Abs() * (ULLI)(howMany + 1)) <= tmp; ++howMany);
+			}
 			result += howMany;
-			shift = rest.ToStr().length() - (rest - (number*howMany)).ToStr().length();
-			rest -= number * howMany;
+			shift = rest.ToStr().length() - (rest - (number.Abs()*howMany)).ToStr().length();
+			tens = 1;
+			for (int i = 0; i < shift; ++i)
+				tens *= 10;
+			rest -= number.Abs() * Decimal(howMany) * tens;
 		}
 		result.sign = this->sign * number.sign;
 		return result;
