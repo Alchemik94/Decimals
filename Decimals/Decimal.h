@@ -794,7 +794,7 @@ public:
 		return *this -= Decimal(number);
 	}
 
-	Decimal operator*(ULLI number)
+	Decimal operator*(ULLI number) const
 	{
 		Decimal tmp(*this);
 		if (number <= base)
@@ -840,39 +840,39 @@ public:
 		else
 			return *this *= Decimal(number);
 	}
-	Decimal operator*(const LLI& number)
+	Decimal operator*(const LLI& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const float& number)
+	Decimal operator*(const float& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const double& number)
+	Decimal operator*(const double& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const int& number)
+	Decimal operator*(const int& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const unsigned int& number)
+	Decimal operator*(const unsigned int& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const long int& number)
+	Decimal operator*(const long int& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const unsigned long int& number)
+	Decimal operator*(const unsigned long int& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const short int& number)
+	Decimal operator*(const short int& number) const
 	{
 		return *this * Decimal(number);
 	}
-	Decimal operator*(const unsigned short int& number)
+	Decimal operator*(const unsigned short int& number) const
 	{
 		return *this * Decimal(number);
 	}
