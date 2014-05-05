@@ -1,13 +1,6 @@
 #ifndef __DECIMAL__
 #define __DECIMAL__
 
-#ifdef __DEBUG__
-#define dbg printf
-#else
-#define dbg
-#endif
-
-
 #include <vector>
 #include <string>
 
