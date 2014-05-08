@@ -935,7 +935,7 @@ public:
 		{
 			tmp = number.Abs();
 			partial = 0;
-			for (i = 0; (tmp << (i+1)) <= rest; ++i)
+			for (i = 0; (tmp << 1) <= rest; ++i)
 				tmp <<= 1;
 			for (j = 0; tmp*powOfTen(j+1) <= rest; ++j);
 			tmp *= powOfTen(j);
@@ -1049,7 +1049,7 @@ public:
 		{
 			tmp = number.Abs();
 			partial = 0;
-			for (i = 0; (tmp << (i + 1)) <= rest; ++i)
+			for (i = 0; (tmp << 1) <= rest; ++i)
 				tmp <<= 1;
 			for (j = 0; tmp*powOfTen(j + 1) <= rest; ++j);
 			tmp *= powOfTen(j);
