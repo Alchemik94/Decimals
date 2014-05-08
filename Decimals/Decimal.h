@@ -172,16 +172,17 @@ public:
 		*this = Decimal();
 		int i = 0;
 		if (str[0] == '-')
-		{
-			sign = -1;
 			++i;
-		}
-		else sign = 1;
 		for (; i < str.length(); ++i)
 		{
 			*this *= (ULLI)(10);
 			*this += Decimal((int)(str[i] - '0'));
 		}
+		if (str[0] == '-')
+		{
+			this->sign = -1;
+		}
+		else this->sign = 1;
 		Repair();
 	}
 
@@ -587,7 +588,8 @@ public:
 		//another signs
 		else
 		{
-			if (number.Abs() > tmp.Abs())
+			if (number.Abs() == tmp.Abs()) return Decimal();
+			else if (number.Abs() > tmp.Abs())
 			{
 				for (; i >= 0; --i)
 					number.v[i] -= tmp.v[i];

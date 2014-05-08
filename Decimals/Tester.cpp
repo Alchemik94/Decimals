@@ -16,6 +16,10 @@ int main()
 	cout << ad;
 	cout << " " << bd << " " << cd << "\n\n\n";
 
+	cout << "\nPodaj ad = ";
+	cin >> ad;
+	cout << "ad = " << ad << "\n";
+
 	Decimal sum = ad + bd;
 	Decimal subtraction = ad - bd;
 	Decimal product = ad*bd;
@@ -27,6 +31,9 @@ int main()
 	cout << "product = " << product << "\n\n\n";
 	cout << "division = " << division << "\n\n\n";
 	cout << "modulo = " << modulo << "\n\n\n";
+
+	cout << "\n\n\n\n\n\n\n\n\n" << Decimal(-2) - Decimal(4) << "\n\n\n\n\n";
+
 	cout << (((ad / cd)*cd + ad%cd) == ad);
 	return 0;
 }
