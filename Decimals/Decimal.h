@@ -62,7 +62,11 @@ class Decimal
 		//deleting leading zeroes
 		while (this->v[this->v.size() - 1] == 0 && this->v.size()>1) this->v.pop_back();
 
-		if (this->v.size() == 0) this->v.PB(0);
+		if (this->v.size() == 0)
+		{
+			this->v.PB(0);
+			this->sign = 1;
+		}
 	}
 
 	string Reverse(string str) const
@@ -183,6 +187,7 @@ public:
 			this->sign = -1;
 		}
 		else this->sign = 1;
+		if (this->Abs() == 0) *this = Decimal();
 		Repair();
 	}
 
@@ -821,6 +826,7 @@ public:
 	}
 	Decimal operator*(const Decimal& number) const
 	{
+		if (number == 0) return Decimal();
 		Decimal tmp, res;
 		for (int i = 0; i < number.v.size(); ++i)
 		{
@@ -833,6 +839,7 @@ public:
 			res += tmp;
 		}
 		res.sign = this->sign * number.sign;
+		res.Repair();
 		return res;
 	}
 	Decimal& operator*=(Decimal& number)
@@ -1041,6 +1048,7 @@ public:
 
 	Decimal operator%(Decimal number) const
 	{
+		if (*this == 0) return Decimal();
 		if (number.Abs() > this->Abs()) return (this->sign*number.sign > 0 ? *this : number - *this);
 		if (number == *this) return 0;
 		if (number == Decimal() - (*this)) return 0;
